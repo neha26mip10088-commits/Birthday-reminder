@@ -1,0 +1,66 @@
+import datetime
+
+# ==========================================
+#       BIRTHDAY REMINDER SYSTEM
+# ==========================================
+
+print("=" * 50)
+print("        🎂 BIRTHDAY REMINDER 🎂")
+print("=" * 50)
+
+# Take name only once
+name = input("Enter your name: ")
+
+# Take birthday only once
+date = input("Enter your birthday (DD-MM-YYYY): ")
+
+try:
+    birthday = datetime.datetime.strptime(
+        date, "%d-%m-%Y"
+    ).date()
+
+    today = datetime.date.today()
+
+    print("\n" + "=" * 50)
+    print("          BIRTHDAY DETAILS")
+    print("=" * 50)
+
+    print("Name:", name)
+    print("Birthday:", birthday.strftime("%d-%m-%Y"))
+
+    # Check today's birthday
+    if birthday.month == today.month and birthday.day == today.day:
+
+        print("\n🎉 HAPPY BIRTHDAY", name + "! 🎂")
+        print("🎈 Have a wonderful birthday! 🎈")
+
+    else:
+
+        # Find next birthday
+        next_birthday = birthday.replace(year=today.year)
+
+        if next_birthday < today:
+            next_birthday = birthday.replace(
+                year=today.year + 1
+            )
+
+        days_left = (next_birthday - today).days
+
+        print("\n⏳ Your birthday is not today.")
+        print("Days left:", days_left)
+
+        print(
+            "Next Birthday:",
+            next_birthday.strftime("%d-%m-%Y")
+        )
+
+    print("\n" + "=" * 50)
+    print("       PROGRAM STOPPED SUCCESSFULLY")
+    print("=" * 50)
+
+except ValueError:
+
+    print("\n❌ Invalid date format!")
+    print("Please enter date like: 30-09-2006")
+
+print("\nThank you for using Birthday Reminder! 🎂")
